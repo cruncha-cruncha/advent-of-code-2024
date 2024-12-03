@@ -1,6 +1,7 @@
 # problem 2
 import re
 
+# lolol
 def is_numeric(s):
     return s == '0' or s == '1' or s == '2' or s == '3' or s == '4' or s == '5' or s == '6' or s == '7' or s == '8' or s == '9'
 
@@ -9,10 +10,12 @@ def fsm(text):
     enable = 0
     disable = 0
     mul = 0
-
+    
+    # vars
     track_mul = True
     mul_num_buffer = ["",""]
 
+    # output
     mul_buffer = []
     
     chars = list(text)
