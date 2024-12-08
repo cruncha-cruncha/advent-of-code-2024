@@ -28,9 +28,7 @@ def main():
             if not c in frequencies:
                 frequencies[c] = []
             frequencies[c].append((i, j))
-
-    # for each antenna, get all others in the frequency
-    # calculate the antinode (start by calculating the difference)
+    
     antinodes = set()
     for freq in frequencies.values():
         for s in range(len(freq)):
