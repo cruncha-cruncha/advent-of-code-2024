@@ -30,28 +30,22 @@ def go_dir(loc, nums, dir):
             return loc, False
         return (x, y + 1), True
 
-def find_paths(loc, nums, peaks, already_visited):
+def find_paths(loc, nums, found_count):
     # loc is a tuple of (i, j)
     # nums is a list of lists of numbers representing altitudes
-    # peaks is a set of tuples which are peaks accessible from this trailhead
-    # already_visited is a set of tuples which are locations we've already visited
+    # found_count is the number of peaks found so far
     for dir in DIRECTIONS:
         new_loc, success = go_dir(loc, nums, dir)
-        if new_loc in already_visited:
-            continue
-        else:
-            already_visited.add(new_loc)
 
         if success:
             x, y = new_loc
             altitude = nums[x][y]
             if altitude == 9:
-                peaks.add(new_loc)
+                found_count += 1
             else: 
-                find_paths(new_loc, nums, peaks, already_visited)
-
-    # four directions: up, down, left, right
-    pass
+                found_count = find_paths(new_loc, nums, found_count)
+    
+    return found_count
 
 def main():
     nums = []
@@ -70,36 +64,11 @@ def main():
                 peaks.append((i, j))
 
     trails = {}
+    total_paths = 0
     for trailhead in trailheads:
-        found_peaks = set()
-        find_paths(trailhead, nums, found_peaks, set(trailhead))
-        trails[trailhead] = found_peaks
+        total_paths += find_paths(trailhead, nums, 0)
 
-    # peak_to_peak = {}
-    # for peak in peaks:
-    #     found_peaks = set()
-    #     find_paths(peak, nums, found_peaks, set(peak))
-    #     peak_to_peak[peak] = found_peaks
-
-    # for trailhead, accessible_peaks in trails.items():
-    #     all_accessible = set()
-    #     to_investigate = accessible_peaks.copy()
-    #     while len(to_investigate) > 0:
-    #         peak = to_investigate.pop()
-
-    #         if peak in all_accessible:
-    #             continue
-    #         else:
-    #             all_accessible.add(peak)
-
-    #         if peak in peak_to_peak:
-    #             to_investigate.update(peak_to_peak[peak])
-
-    total = 0
-    for trailhead, peaks in trails.items():
-        total += len(peaks)
-
-    print(total)
+    print(total_paths)
 
 if __name__ == '__main__':
     main()
