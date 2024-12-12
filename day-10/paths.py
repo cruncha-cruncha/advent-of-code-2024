@@ -75,6 +75,7 @@ def main():
         find_paths(trailhead, nums, found_peaks, set(trailhead))
         trails[trailhead] = found_peaks
 
+    # this only made sense if trails could also be descending
     # peak_to_peak = {}
     # for peak in peaks:
     #     found_peaks = set()

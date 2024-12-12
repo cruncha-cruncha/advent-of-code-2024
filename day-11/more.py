@@ -1,5 +1,9 @@
 # problem 2 part 1
 
+# this is not a good solution, would be better to:
+# a. memoize/cache based on a tuple: (number on stone, depth) (https://github.com/sanvirk99/adventcode/blob/fa8d4d3649da13187d7e9a66f5b98c54c944d558/day11.py#L49) or
+# b. use two maps: current and next, where key = number on the stone and value = count of stones with that number (https://github.com/bozdoz/advent-of-code-2024/blob/main/day-11/src/main.rs)
+
 from collections import Counter
 import pickle
 
