@@ -32,8 +32,8 @@ def main():
         elif line.startswith('Prize:'):
             match_string = "Prize: X=(\d+), Y=(\d+)"
             groups = re.match(match_string, line).groups()
-            p_x = int(groups[0]) #+ 10000000000000
-            p_y = int(groups[1]) #+ 10000000000000
+            p_x = int(groups[0]) + 10000000000000
+            p_y = int(groups[1]) + 10000000000000
             equations.append(((p_x, a_x, b_x), (p_y, a_y, b_y)))
 
     solved = []
@@ -47,24 +47,16 @@ def main():
         eq_2 = (eq_2[0] * coef_2 - eq_1[0], 0, eq_2[2] * coef_2 - eq_1[2])
         if eq_2[0] % eq_2[2] == 0:
             b = eq_2[0] // eq_2[2]
-            a = (eq_1[0] - eq_1[2] * b) // eq_1[1]
-            solved.append((i, a, b))
+            if (eq_1[0] - eq_1[2] * b) % eq_1[1] == 0:
+                a = (eq_1[0] - eq_1[2] * b) // eq_1[1]
+                solved.append((i, a, b))
 
-    # total_cost = 0
-    # for sol in solved:
-    #     i, a, b = sol
-    #     total_cost += a * 3 + b
+    total_cost = 0
+    for sol in solved:
+        i, a, b = sol
+        total_cost += a * 3 + b
 
-    # 87091965106033 is too high
-
-    print(solved)
+    print(total_cost)
 
 if __name__ == '__main__':
     main()
-
-# Button A: X+94, Y+34
-# Button B: X+22, Y+67
-# Prize: X=8400, Y=5400
-
-# 8400 = 94a + 22b
-# 5400 = 34a + 67b
